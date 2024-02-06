@@ -231,4 +231,5 @@ abstract class Consts {
     5,
     6
   ];
+  static List<String> sebhatList = ["سبحان الله", "الحمد لله", "الله أكبر"];
 }
