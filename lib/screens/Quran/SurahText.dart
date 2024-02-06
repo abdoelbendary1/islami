@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:islami/screens/Quran/surah_details_screen.dart';
 
 class ItemSurahText extends StatelessWidget {
-  ItemSurahText({required this.name, required this.index});
+  ItemSurahText(
+      {required this.name, required this.index, required this.verseNums});
   String name;
+  int verseNums;
   int index;
 
   @override
@@ -11,12 +13,28 @@ class ItemSurahText extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, SurahDetailsScreen.routeName,
-            arguments: SurahDetailsArgs(name: name, index: index));
+            arguments: SurahDetailsArgs(
+                name: name, index: index, verseNums: verseNums));
       },
-      child: Text(
-        name,
-        style: Theme.of(context).textTheme.titleMedium,
-        textAlign: TextAlign.center,
+      child: Expanded(
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                "$verseNums",
+                style: Theme.of(context).textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                name,
+                style: Theme.of(context).textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -24,6 +42,8 @@ class ItemSurahText extends StatelessWidget {
 
 class SurahDetailsArgs {
   String name;
+  int verseNums;
   int index;
-  SurahDetailsArgs({required this.name, required this.index});
+  SurahDetailsArgs(
+      {required this.name, required this.index, required this.verseNums});
 }

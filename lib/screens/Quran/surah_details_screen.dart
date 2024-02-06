@@ -22,80 +22,88 @@ class _SurahDetailsScreenState extends State<SurahDetailsScreen> {
       loadFile(args.index);
     }
 
+    return buildSurahScreen(context, args);
+  }
+
+  Stack buildSurahScreen(BuildContext context, SurahDetailsArgs args) {
     return Stack(
-      children: [
-        Image.asset(
-          "assets/images/main_background.png",
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.fill,
-        ),
-        Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Islami",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+    children: [
+      Image.asset(
+        "assets/images/main_background.png",
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.fill,
+      ),
+      Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Islami",
+            style: Theme.of(context).textTheme.titleLarge,
           ),
-          backgroundColor: Colors.transparent,
-          body: verses.isEmpty
-              ? Center(
-                  child: CircularProgressIndicator(
-                  color: AppTheme.primaryLight,
-                ))
-              : Card(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.02,
-                      vertical: MediaQuery.of(context).size.width * 0.05),
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "سورة ${args.name}",
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: ImageIcon(AssetImage(
-                                    "assets/images/Icon awesome-play-circle.png"))),
-                          ],
-                        ),
-                        Container(
-                          color: AppTheme.primaryLight,
-                          height: 3,
-                          width: double.infinity,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Expanded(
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) => Divider(
-                              thickness: 1,
-                              color: AppTheme.primaryLight,
-                            ),
-                            itemBuilder: (context, index) => ItemSurahDetails(
-                              name: verses[index],
-                              index: index,
-                            ),
-                            itemCount: verses.length,
+        ),
+        backgroundColor: Colors.transparent,
+        body: verses.isEmpty
+            ? Center(
+                child: CircularProgressIndicator(
+                color: AppTheme.primaryLight,
+              ))
+            : buildSurahCard(context, args),
+      ),
+    ],
+  );
+  }
+
+  Card buildSurahCard(BuildContext context, SurahDetailsArgs args) {
+    return Card(
+                margin: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.02,
+                    vertical: MediaQuery.of(context).size.width * 0.05),
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "سورة ${args.name}",
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          IconButton(
+                              onPressed: () {},
+                              icon: ImageIcon(AssetImage(
+                                  "assets/images/Icon awesome-play-circle.png"))),
+                        ],
+                      ),
+                      Container(
+                        color: AppTheme.primaryLight,
+                        height: 3,
+                        width: double.infinity,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Expanded(
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) => Divider(
+                            thickness: 1,
+                            color: AppTheme.primaryLight,
+                          ),
+                          itemBuilder: (context, index) => ItemSurahDetails(
+                            name: verses[index],
+                            index: index,
+                          ),
+                          itemCount: verses.length,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-        ),
-      ],
-    );
+              );
   }
 
   void loadFile(int index) async {
