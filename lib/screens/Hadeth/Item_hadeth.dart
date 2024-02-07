@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:islami/screens/Hadeth/hadeth_details_screen.dart';
-import 'package:islami/screens/Quran/surah_details_screen.dart';
 
 class ItemHadeth extends StatelessWidget {
   ItemHadeth({required this.index});
@@ -16,6 +15,7 @@ class ItemHadeth extends StatelessWidget {
       child: Center(
           child: Text(
         "الحديث رقم ${index + 1}",
+        style: Theme.of(context).textTheme.titleMedium,
       )),
     );
   }

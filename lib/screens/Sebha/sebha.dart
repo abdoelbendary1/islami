@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:islami/providers/app_config_provider.dart';
 import 'package:islami/theme.dart';
 import 'package:islami/screens/Quran/consts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class SebhaScreeen extends StatefulWidget {
   const SebhaScreeen({super.key});
@@ -23,19 +26,27 @@ class _SebhaScreeenState extends State<SebhaScreeen> {
   }
 
   Center createSebhaScreen(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
+
     return Center(
       child: Column(
         children: [
           AnimatedRotation(
-              turns: angle,
-              duration: Duration(milliseconds: 50),
-              child: Image.asset("assets/images/Sebha.png")),
+            turns: angle,
+            duration: Duration(milliseconds: 50),
+            child: Image.asset(
+              "assets/images/Sebha.png",
+              color: provider.isDarkMode()
+                  ? AppTheme.yellowDark
+                  : AppTheme.primaryLight,
+            ),
+          ),
           SizedBox(
             height: 30,
           ),
           Text(
-            "عدد التسبيحات",
-            style: Theme.of(context).textTheme.bodyLarge,
+            AppLocalizations.of(context)!.sebha_nums,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           SizedBox(
             height: 30,
@@ -101,14 +112,18 @@ class CreateTextShape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     return SizedBox(
       width: width,
       height: height,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             elevation: 5,
-            backgroundColor: AppTheme.primaryLight,
-            foregroundColor: Colors.white,
+            backgroundColor: provider.isDarkMode()
+                ? AppTheme.yellowDark
+                : AppTheme.primaryLight,
+            foregroundColor:
+                provider.isDarkMode() ? AppTheme.blackColor : Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(raduis))),
         onPressed: onTap,
