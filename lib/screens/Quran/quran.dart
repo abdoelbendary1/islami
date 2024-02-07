@@ -1,17 +1,17 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_unnecessary_containers
-
 import 'package:flutter/material.dart';
+import 'package:islami/providers/app_config_provider.dart';
 import 'package:islami/screens/Quran/SurahText.dart';
 import 'package:islami/screens/Quran/consts.dart';
-import 'package:islami/screens/Quran/surah_details_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islami/theme.dart';
+import 'package:provider/provider.dart';
 
 class QuranScreen extends StatelessWidget {
   QuranScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BuildQuranWidget();
+    return const BuildQuranWidget();
   }
 }
 
@@ -22,6 +22,7 @@ class BuildQuranWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     return Column(
       children: [
         Expanded(
@@ -38,7 +39,9 @@ class BuildQuranWidget extends StatelessWidget {
                 child: Container(
                   height: double.infinity,
                   width: 3,
-                  color: AppTheme.primaryLight,
+                  color: provider.isDarkMode()
+                      ? AppTheme.yellowDark
+                      : AppTheme.primaryLight,
                 ),
               ),
               Column(
@@ -46,20 +49,22 @@ class BuildQuranWidget extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: 3,
-                    color: AppTheme.primaryLight,
+                    color: provider.isDarkMode()
+                        ? AppTheme.yellowDark
+                        : AppTheme.primaryLight,
                   ),
                   Row(
                     children: [
                       Expanded(
                         child: Text(
-                          "عدد الايات ",
+                          AppLocalizations.of(context)!.verse_nums,
                           style: Theme.of(context).textTheme.titleMedium,
                           textAlign: TextAlign.center,
                         ),
                       ),
                       Expanded(
                         child: Text(
-                          "اسم السورة",
+                          AppLocalizations.of(context)!.surah_name,
                           style: Theme.of(context).textTheme.titleMedium,
                           textAlign: TextAlign.center,
                         ),
@@ -69,7 +74,12 @@ class BuildQuranWidget extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: 3,
-                    color: AppTheme.primaryLight,
+                    color: provider.isDarkMode()
+                        ? AppTheme.yellowDark
+                        : AppTheme.primaryLight,
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   Expanded(
                     child: ListView.separated(
