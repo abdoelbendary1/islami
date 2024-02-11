@@ -31,14 +31,37 @@ class _SebhaScreeenState extends State<SebhaScreeen> {
     return Center(
       child: Column(
         children: [
-          AnimatedRotation(
-            turns: angle,
-            duration: Duration(milliseconds: 50),
-            child: Image.asset(
-              "assets/images/Sebha.png",
-              color: provider.isDarkMode()
-                  ? AppTheme.yellowDark
-                  : AppTheme.primaryLight,
+          SizedBox(
+            width: 300,
+            height: 320,
+            child: Stack(
+              alignment: Alignment.topCenter,
+              fit: StackFit.expand,
+              children: [
+                Positioned(
+                  top: 0,
+                  left: 100,
+                  child: Image.asset(
+                    "assets/images/headOfSeb7a.png",
+                    color: provider.isDarkMode()
+                        ? AppTheme.yellowDark
+                        : AppTheme.primaryLight,
+                  ),
+                ),
+                Positioned(
+                  top: 70,
+                  child: AnimatedRotation(
+                    turns: angle,
+                    duration: Duration(milliseconds: 50),
+                    child: Image.asset(
+                      "assets/images/bodyOfSeb7a.png",
+                      color: provider.isDarkMode()
+                          ? AppTheme.yellowDark
+                          : AppTheme.primaryLight,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           SizedBox(
